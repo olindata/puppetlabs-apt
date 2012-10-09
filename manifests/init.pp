@@ -27,7 +27,8 @@ class apt(
   $proxy_port           = '8080',
   $purge_sources_list   = false,
   $purge_sources_list_d = false,
-  $purge_preferences_d  = false
+  $purge_preferences_d  = false,
+  $source_content       = "# Repos managed by puppet.\n"
 ) {
 
   include apt::params
@@ -37,7 +38,7 @@ class apt(
 
   $sources_list_content = $purge_sources_list ? {
     false => undef,
-    true  => "# Repos managed by puppet.\n",
+    true  => $source_content,
   }
 
   if $always_apt_update == true {
